@@ -1,6 +1,7 @@
 'use strict';
 
-const origin = window.location.origin;
+const preview = document.body.hasAttribute('data-preview');
+const origin = preview ? 'https://gateway.example.com' : window.location.origin;
 const examples = {
   openai: {
     path: '/v1/chat/completions',
@@ -56,10 +57,14 @@ copy.addEventListener('click', async () => {
 });
 
 const health = document.querySelector('#health');
-fetch('/health', { cache: 'no-store', signal: AbortSignal.timeout(5000) })
-  .then(response => {
-    if (!response.ok) throw new Error('Gateway unavailable');
-    document.querySelector('.service').classList.add('online');
-    health.textContent = '网关在线';
-  })
-  .catch(() => { health.textContent = '网关暂不可用'; });
+if (preview) {
+  health.textContent = '首页预览';
+} else {
+  fetch('/health', { cache: 'no-store', signal: AbortSignal.timeout(5000) })
+    .then(response => {
+      if (!response.ok) throw new Error('Gateway unavailable');
+      document.querySelector('.service').classList.add('online');
+      health.textContent = '网关在线';
+    })
+    .catch(() => { health.textContent = '网关暂不可用'; });
+}

@@ -45,3 +45,5 @@ vercel deploy --prebuilt
 ```
 
 验证预览环境的注册、登录和模型调用后，用 `vercel deploy --prebuilt --prod` 发布。源站凭据留在服务器上。
+
+暂时没有公网源站时，可用 `node build-vercel.mjs --preview` 生成仅含中文首页的预览，再执行 `vercel deploy --prebuilt`。

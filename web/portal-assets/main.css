@@ -30,6 +30,7 @@ nav > a:not(.button):hover, .foot a:hover { color: var(--accent); }
 .dark:hover, .accent:hover { background: #3529a8; }
 .outline { border-color: #cfcfe0; background: #fff; }
 .outline:hover { border-color: var(--accent); }
+.preview-notice { margin-top: 18px; padding: 10px 14px; color: #463a9c; background: #eeecfa; border-radius: 8px; font-size: .9rem; }
 .hero { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 6vw, 84px); align-items: center; padding: 84px 0 76px; }
 .service { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #e3e0f5; background: #eeecfa; border-radius: 20px; padding: 6px 11px; color: #463a9c; font-weight: 700; font-size: .82rem; }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: #8277b6; }
