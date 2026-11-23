@@ -34,7 +34,9 @@ docker compose ps
 
 ## 部署到 Vercel
 
-先在支持常驻 Docker 容器的服务器部署本目录，将 Nginx 入口配置为可访问的 HTTPS 域名。Sub2API、PostgreSQL 和 Redis 在该服务器上运行。Vercel 提供首页和静态资源，并把控制台和 API 请求转发到同一个源站。
+先在支持常驻 Docker 容器的服务器部署本目录，将 Nginx 入口配置为可访问的 HTTPS 域名。Sub2API、PostgreSQL 和 Redis 在该服务器上运行。Vercel 提供 `/home` 和静态资源，并把控制台和 API 请求转发到同一个源站。连接源站后，访问域名根路径会进入 `/dashboard`，由 Sub2API 处理登录。
+
+通过 GitHub 集成部署时，将仓库根目录设为 Vercel 项目根目录，添加 Production 环境变量 `MODELPORT_ORIGIN`，再重新部署。缺少源站地址时，Git 构建会发布标明状态的中文首页预览。
 
 在本目录执行以下命令。把示例域名换成自己的 HTTPS 源站。
 

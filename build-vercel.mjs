@@ -1,6 +1,7 @@
 import { cp, mkdir, readFile, writeFile } from 'node:fs/promises';
 
-const preview = process.argv.includes('--preview');
+const preview = process.argv.includes('--preview')
+  || (process.argv.includes('--auto') && !process.env.MODELPORT_ORIGIN);
 let gateway;
 if (!preview) {
   try {
@@ -21,7 +22,10 @@ await mkdir(output, { recursive: true });
 await cp(new URL('./web/', import.meta.url), new URL('static/', output), { recursive: true });
 
 const routes = [
-  { src: '^/(?:home/?)?$', dest: '/index.html', methods: ['GET', 'HEAD'] },
+  preview
+    ? { src: '^/$', dest: '/index.html', methods: ['GET', 'HEAD'] }
+    : { src: '^/$', status: 307, headers: { Location: '/dashboard' }, methods: ['GET', 'HEAD'] },
+  { src: '^/home/?$', dest: '/index.html', methods: ['GET', 'HEAD'] },
   { handle: 'filesystem' },
 ];
 if (preview) {
