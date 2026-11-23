@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f8fc">
+  <title>模型港 · AI API 中转站</title>
+  <meta name="description" content="统一接入多家 AI 模型，管理 API 密钥、配额与请求用量。">
+  <link rel="stylesheet" href="/portal-assets/main.css">
+  <script src="/portal-assets/main.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap nav">
+      <a class="brand" href="/" aria-label="模型港首页"><span class="mark" aria-hidden="true">◈</span>模型港<span class="brand-period">.</span></a>
+      <nav aria-label="主导航">
+        <a href="#models">模型与协议</a>
+        <a href="#docs">接入文档</a>
+        <a class="button dark" href="/login">登录控制台</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="intro">
+        <div class="service"><span class="dot" aria-hidden="true"></span><span id="health" role="status">正在检查网关</span></div>
+        <h1 id="hero-title">一个入口，<br><em>连接多种模型。</em></h1>
+        <p>把已授权的上游订阅或 API 账号接入同一个网关，用一把站内密钥调用模型，在控制台查看配额和用量。</p>
+        <div class="actions"><a class="button accent" href="/login">进入控制台</a><a class="button outline" href="#examples">查看调用示例</a></div>
+      </div>
+
+      <div class="example" id="examples">
+        <div class="example-head"><span>快速调用</span><span class="example-note">cURL</span></div>
+        <div class="protocols" aria-label="选择调用协议">
+          <button type="button" data-protocol="openai" aria-pressed="true">OpenAI</button>
+          <button type="button" data-protocol="anthropic" aria-pressed="false">Anthropic</button>
+          <button type="button" data-protocol="gemini" aria-pressed="false">Gemini</button>
+        </div>
+        <pre><code id="example-code">正在加载调用示例…</code></pre>
+        <div class="example-footer">
+          <span id="endpoint"></span>
+          <button class="copy" id="copy" type="button">复制命令</button>
+        </div>
+        <span class="visually-hidden" id="copy-status" role="status"></span>
+      </div>
+    </section>
+
+    <section id="models" class="section" aria-labelledby="models-title">
+      <div class="section-head"><h2 id="models-title">模型与协议</h2><p>实际可用模型由管理员配置，取决于你的密钥分组。</p></div>
+      <div class="model-grid">
+        <article><span class="glyph mint" aria-hidden="true">O</span><div><h3>GPT</h3><p>OpenAI 兼容接口</p></div><code>/v1</code></article>
+        <article><span class="glyph peach" aria-hidden="true">A</span><div><h3>Claude</h3><p>Anthropic Messages</p></div><code>/v1/messages</code></article>
+        <article><span class="glyph lilac" aria-hidden="true">G</span><div><h3>Gemini</h3><p>Gemini 原生接口</p></div><code>/v1beta</code></article>
+        <article><span class="glyph sky" aria-hidden="true">A</span><div><h3>Antigravity</h3><p>独立路由</p></div><code>/antigravity</code></article>
+      </div>
+    </section>
+
+    <section class="section capabilities" aria-labelledby="controls-title">
+      <div class="section-head"><h2 id="controls-title">网关管理</h2></div>
+      <div class="controls">
+        <article><h3>上游账号池</h3><p>按平台和分组管理订阅与 API 账号，为同一分组配置多个上游。</p></article>
+        <article><h3>会话保持</h3><p>网关可按会话调度到同一上游，并在账号不可用时按分组规则切换。</p></article>
+        <article><h3>密钥和用量</h3><p>为应用签发密钥、设置配额，并按请求查看 Token 消耗和费用。</p></article>
+      </div>
+    </section>
+
+    <section id="docs" class="section doc" aria-labelledby="docs-title">
+      <div class="section-head"><h2 id="docs-title">接入文档</h2><p>获取密钥后，把地址和模型填到客户端即可开始调用。</p></div>
+      <ol>
+        <li><h3>创建 API 密钥</h3><p>登录后打开<a href="/keys">密钥管理</a>，选用管理员分配的分组。配额和过期时间可按需设置。</p></li>
+        <li><h3>填写网关地址</h3><p>OpenAI 兼容客户端使用 <code id="base-url">/v1</code>。在<a href="#examples">调用示例</a>切换协议可查看对应路径和鉴权方式。</p></li>
+        <li><h3>检查调用和用量</h3><p>把示例里的 <code>MODELPORT_KEY</code> 和 <code>MODEL_ID</code> 换成你的密钥和模型。在<a href="/usage">用量记录</a>查看请求、Token 和费用。</p></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="wrap foot"><span>模型港</span><a href="https://github.com/Wei-Shaw/sub2api">基于 Sub2API</a></footer>
+</body>
+</html>

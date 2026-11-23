@@ -1,0 +1,19 @@
+#!/bin/sh
+set -eu
+cd -- "$(dirname -- "$0")"
+if [ -e .env ]; then
+  printf '%s\n' '.env 已存在，继续使用现有配置。'
+  exit 0
+fi
+umask 077
+tmp=$(mktemp .env.XXXXXX)
+trap 'test ! -e "$tmp" || unlink "$tmp"' EXIT
+{
+  printf 'ADMIN_EMAIL=operator@modelport.local\n'
+  for name in ADMIN_PASSWORD POSTGRES_PASSWORD REDIS_PASSWORD JWT_SECRET TOTP_ENCRYPTION_KEY; do
+    secret=$(openssl rand -hex 32)
+    printf '%s=%s\n' "$name" "$secret"
+  done
+} > "$tmp"
+ln "$tmp" .env
+printf '%s\n' '已创建 .env。初始管理员邮箱和密码保存在其中。'
